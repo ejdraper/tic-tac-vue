@@ -6,8 +6,17 @@ var Grid = Vue.component('grid', {
         ['', '', ''],
         ['', '', ''],
         ['', '', '']
-      ]
+      ],
+      next: 'x'
     };
+  },
+  methods: {
+    tap: function(e) {
+      if (e.target.innerText == '') {
+        e.target.innerText = this.next;
+        this.next = (this.next == 'x' ? 'o' : 'x');
+      }
+    }
   }
 });
 

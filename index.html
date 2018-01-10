@@ -9,7 +9,7 @@
     <script type="text/x-template" id="grid">
       <div class="grid">
         <div class="row" v-for="row in rows">
-          <div class="column" v-for="column in row">
+          <div class="column" v-for="column in row" v-on:click="tap">
             {{column}}
           </div>
         </div>
