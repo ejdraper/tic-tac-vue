@@ -8,7 +8,8 @@ var Grid = Vue.component('grid', {
         ['', '', '']
       ],
       next: 'x',
-      finished: false
+      finished: false,
+      stalemate: false
     };
   },
   methods: {
@@ -19,7 +20,10 @@ var Grid = Vue.component('grid', {
         this.rows = rows.slice(0);
 
         if (this.checkWinner()) {
-          this.finished = true
+          this.finished = true;
+        } else if (this.checkStalemate()) {
+          this.stalemate = true;
+          this.finished = true;
         } else {
           this.nextPlayer();
         }
@@ -32,10 +36,17 @@ var Grid = Vue.component('grid', {
         ['', '', '']
       ];
       this.finished = false;
+      this.stalemate = false;
       this.nextPlayer();
     },
     nextPlayer: function() {
       this.next = (this.next == 'x' ? 'o' : 'x');
+    },
+    checkStalemate: function() {
+      return !this.finished &&
+        (this.checkValuesPresent(this.rows[0]) &&
+        this.checkValuesPresent(this.rows[1]) &&
+        this.checkValuesPresent(this.rows[2]));
     },
     checkWinner: function() {
       return (
@@ -49,7 +60,13 @@ var Grid = Vue.component('grid', {
         this.checkValues([this.rows[0][2], this.rows[1][1], this.rows[2][0]]));
     },
     checkValues: function(values) {
-      return (values[0] != '' && values[1] != '' && values[2] != '' && (values[0] === values[1]) && (values[1] === values[2]));
+      return this.checkValuesPresent(values) && this.checkValuesMatch(values);
+    },
+    checkValuesPresent: function(values) {
+      return (values[0] != '' && values[1] != '' && values[2] != '');
+    },
+    checkValuesMatch: function(values) {
+      return (values[0] === values[1]) && (values[1] === values[2]);
     }
   }
 });
