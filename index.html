@@ -8,8 +8,8 @@
     <div id="app"></div>
     <script type="text/x-template" id="grid">
       <div class="grid">
-        <div class="row" v-for="row in rows">
-          <div class="column" v-for="column in row" v-on:click="tap">
+        <div class="row" v-for="(row, row_index) in rows">
+          <div class="column" v-for="(column, column_index) in row" v-on:click="tap" v-bind:data-row="row_index" v-bind:data-column="column_index">
             {{column}}
           </div>
         </div>

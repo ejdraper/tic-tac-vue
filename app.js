@@ -13,7 +13,9 @@ var Grid = Vue.component('grid', {
   methods: {
     tap: function(e) {
       if (e.target.innerText == '') {
-        e.target.innerText = this.next;
+        let rows = this.rows;
+        rows[e.target.attributes['data-row'].value][e.target.attributes['data-column'].value] = this.next;
+        this.rows = rows.slice(0);
         this.next = (this.next == 'x' ? 'o' : 'x');
       }
     }
