@@ -21,9 +21,21 @@ var Grid = Vue.component('grid', {
         if (this.checkWinner()) {
           this.finished = true
         } else {
-          this.next = (this.next == 'x' ? 'o' : 'x');
+          this.nextPlayer();
         }
       }
+    },
+    restart: function(e) {
+      this.rows = [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
+      ];
+      this.finished = false;
+      this.nextPlayer();
+    },
+    nextPlayer: function() {
+      this.next = (this.next == 'x' ? 'o' : 'x');
     },
     checkWinner: function() {
       return (

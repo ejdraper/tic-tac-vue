@@ -14,7 +14,10 @@
           </div>
         </div>
         <div class="status">
-          <span v-if="finished">Finished! {{next}} wins!</span>
+          <div v-if="finished">
+            <p>Finished! {{next}} wins!</p>
+            <a v-on:click="restart">Restart</a>
+          </div>
           <span v-else>Next go: {{next}}</span>
         </div>
       </div>
